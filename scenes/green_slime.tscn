@@ -1,0 +1,78 @@
+[gd_scene load_steps=11 format=3 uid="uid://dndtbr14yn4ie"]
+
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_4ckjb"]
+[ext_resource type="Texture2D" uid="uid://ci6774o1npf43" path="res://assets/sprites/slime_green.png" id="1_mmuf3"]
+[ext_resource type="PackedScene" uid="uid://nd8qsmxo27l5" path="res://scenes/killzone.tscn" id="2_be0gi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5s0id"]
+atlas = ExtResource("1_mmuf3")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkxij"]
+atlas = ExtResource("1_mmuf3")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bses"]
+atlas = ExtResource("1_mmuf3")
+region = Rect2(24, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8phd"]
+atlas = ExtResource("1_mmuf3")
+region = Rect2(0, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eg0ma"]
+atlas = ExtResource("1_mmuf3")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k6k4l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5s0id")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkxij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bses")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8phd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eg0ma")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xitt3"]
+size = Vector2(10, 12)
+
+[node name="GreenSlime" type="Node2D"]
+position = Vector2(-1, -1)
+script = ExtResource("1_4ckjb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -13)
+sprite_frames = SubResource("SpriteFrames_k6k4l")
+autoplay = "default"
+frame_progress = 0.340981
+flip_h = true
+
+[node name="Killzone" parent="." instance=ExtResource("2_be0gi")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(1, -8)
+shape = SubResource("RectangleShape2D_xitt3")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(1, -8)
+target_position = Vector2(12, 0)
+collision_mask = 4
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(1, -8)
+target_position = Vector2(-12, 0)
+collision_mask = 4
